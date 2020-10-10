@@ -25,10 +25,10 @@
               <h5 class="card-title">All Teacher</h5>
             </div>
             <div class="card-body">
-              <table id="table_id" class="display table table-borderless ">
+              <table id="table_id" class="table table-borderd">
                 <thead>
                     <tr>
-                        <th>Sl No</th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Titile</th>
                         <th>Institute</th>
@@ -54,8 +54,8 @@
         <div class="col-sm-4">
           <div class="card">
             <div class="card-header">
-              <h5 class="card-title" id="addTeacher">Add New Teacher</h5>
-              <h5 class="card-title" id="updateTeacher">Add New Teacher</h5>
+                <span class="card-title" id="addTeacher">Add New Teacher</span>
+              <span class="card-title" id="updateTeacher">Add New Teacher</span>
             </div>
             <div class="card-body">
                 <div class="form-group">
@@ -91,7 +91,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
       <script type="text/javascript">
@@ -141,6 +140,9 @@
           $('#name').val('');
           $('#title').val('');
           $('#institute').val('');
+          $('#nameError').text(''); 
+          $('#titleError').text('');
+          $('#instituteError').text('');   
         }
   //================== End Clear Data from  input Form ================
 
@@ -165,11 +167,12 @@
                 });
               clearData();
               allData();
-              console.log('successfully added');
             },
             error: function(error){
-              // $('#nameError').text('error.responeJson.errors.name');
-           
+              $('#nameError').text('This field is required');
+              $('#titleError').text('This field is required');
+              $('#instituteError').text('This field is required');
+              
             }
           })
         }
@@ -185,8 +188,8 @@
             url: "/teacher/edit/"+id,
             success: function (data){
               $('#addTeacher').hide();
-              $('#updateTeacher').show();
               $('#addButton').hide();
+              $('#updateTeacher').show();
               $('#updateButton').show();
               $('#id').val(data.id);
               $('#name').val(data.name);
